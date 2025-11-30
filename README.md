@@ -3,15 +3,17 @@ Web Application - Take Home
 
 DEFINIZIONE REQUISITI (dal pdf)
 
-- Problema:
+PROBLEMA:
 
 In azienda abbiamo un sistema di raccolta dei dati relativi alle ore lavorative spese da ogni impiegato sui progetti. 
 Si vuole realizzare una pagina web che recuperi questi dati e ne permetta l’aggregazione su uno o più campi contemporaneamente al fine di effettuare delle analisi.
 
-- Input:
+INPUT:
 Il database restituisce una lista di registrazioni di attività. Ogni attività presenta il progetto di afferenza, l’impiegato che la ha svolta, la data e il numero di ore dedicate.
 
 Esempio di payload: 
+
+---
 
 [
 {
@@ -52,7 +54,9 @@ Esempio di payload:
 }
 ]
 
-- Output:
+---
+
+OUTPUT:
 La pagina web consente di aggregare per uno o più campi tra:
 	- progetto
 	- impiegato
@@ -61,12 +65,14 @@ La pagina web consente di aggregare per uno o più campi tra:
 Quando l’utente sceglie una aggregazione il numero di ore delle attività aggregate si somma.
 È importante considerare che l’ordine con cui vengono scelti i campi per l’aggregazione produce risultati diversi nell’ordinamento di colonne e righe.
 
-- Vincoli:
+VINCOLI:
 1. Sviluppare una applicazione web client-server sfruttando la tecnologia che si preferisce.
 2. Il database può essere simulato con una variabile in memoria.
 
+LINK A MOCKUP (FIGMA):
+https://www.figma.com/design/hqV2bN45RO8v5H4GwSH1L1/aggregazioni-mockup?node-id=0-1&t=YZCdKk4JzUpmconw-1
 
-- Tecnologie usate:
+TECNOLOGIE USATE:
 
 - React.js + Vite + Axios API (Frontend)
 	- Bootstrap (base tabella)
@@ -75,7 +81,7 @@ Quando l’utente sceglie una aggregazione il numero di ore delle attività aggr
 - CSS
 - HTML5
 
-Fonti:
+FONTI:
 
 Vite:
 - https://vite.dev/guide/
@@ -95,4 +101,5 @@ Axios API:
 
 Bootstrap:
 - https://getbootstrap.com/docs/4.0/content/tables/
+
 
