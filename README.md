@@ -57,6 +57,7 @@ La pagina web consente di aggregare per uno o più campi tra:
 	- progetto
 	- impiegato
 	- data
+
 Quando l’utente sceglie una aggregazione il numero di ore delle attività aggregate si somma.
 È importante considerare che l’ordine con cui vengono scelti i campi per l’aggregazione produce risultati diversi nell’ordinamento di colonne e righe.
 
@@ -75,6 +76,7 @@ Quando l’utente sceglie una aggregazione il numero di ore delle attività aggr
 - HTML5
 
 Fonti:
+
 Vite:
 - https://vite.dev/guide/
 - https://vite.dev/guide/static-deploy
