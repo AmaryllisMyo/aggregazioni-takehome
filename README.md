@@ -4,7 +4,10 @@
 ### <b>ISTRUZIONI PER BUILDARE</b>:<br>
 Da CLI: 
 - cd LATUACARTELLA/aggregazioni-takehome/my-app
-- npm run start:prod
+- cd client
+- npm run build
+- cd ..
+- npm start build
 
 Alternativamente con Yarn (dopo cd LATUACARTELLA/aggregazioni-takehome/my-app):
 - yarn build:client
