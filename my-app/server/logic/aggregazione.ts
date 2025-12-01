@@ -1,5 +1,7 @@
 import { db } from '../assets/db.ts';
-import type { AggregationResult } from './types.ts';
+import type { AggregationResult } from '../../client/src/Logic/types.ts';
+
+//logica di aggregazione dei dati
 
 export function aggregaDati(dati: typeof db.records, campiAggregazione: string[]): AggregationResult[] {
   const result: Record<string, AggregationResult> = {};

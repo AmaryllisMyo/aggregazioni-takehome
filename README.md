@@ -1,6 +1,11 @@
 # aggregazioni-takehome
 Web Application - Take Home
 
+ISTRUZIONI PER BUILDARE:
+Da CLI: $
+cd LATUACARTELLA/aggregazioni-takehome/my-app
+npm run start:prod
+
 DEFINIZIONE REQUISITI (dal pdf)
 
 - Problema:
@@ -87,6 +92,7 @@ Express:
 - https://expressjs.com/en/starter/installing.html
 - https://expressjs.com/en/guide/using-middleware.html
 - https://expressjs.com/en/guide/routing.html
+- https://medium.com/@finnkumar6/understanding-router-in-express-js-a-complete-guide-7d2cece2b757
 
 Axios API:
 - https://axios-http.com/docs/intro

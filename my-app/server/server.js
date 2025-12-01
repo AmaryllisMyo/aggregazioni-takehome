@@ -1,42 +1,45 @@
 import express from 'express';
 import cors from 'cors';
-import { db } from '../src/assets/db.ts';
-import { aggregaDati } from '../src/Logic/aggregazione.ts';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import router from './router.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+//const router = require('./router');
+
 
 const app = express();
 const PORT = 3001;
 
-app.use(cors({
+
+const isDev = process.env.NODE_ENV !== 'production';
+
+//NB: cors mi serve solo in DEV, in PROD è poi tutto su stessa porta
+if(isDev){app.use(cors({
   origin: 'http://localhost:5173',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
-
+}
 app.use(express.json());
-app.get('/api/records', (req, res) => {
-  try {
 
-    const { campiAggregazione } = req.query;
-    
-    let campi = ['project']; 
-    if (campiAggregazione && typeof campiAggregazione === 'string') {
-      campi = campiAggregazione.split(',');
-      console.log(db);
-    }
-    
-    const result = aggregaDati(db.records, campi);
+app.use('/api', router);
 
-    res.json(result);
-  } catch (error) {
-    res.status(500).json({ error: 'Error 500' });
-  }
-});
+if (!isDev) {
+  const clientPath = path.join(__dirname, '../client/dist');
+  app.use(express.static(clientPath));
 
-app.get('/api/records/raw', (req, res) => {
-  res.json(db.records);
-});
+    app.use((req, res) => {
+    res.sendFile(path.join(clientPath, 'index.html'));
+  });
+}
+
 
 app.listen(PORT, () => {
   console.log(`Server started on http://localhost:${PORT}`);
+  if (!isDev) {
+    console.log(`Client served from http://localhost:${PORT}`);
+  }
 });
