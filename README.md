@@ -1,19 +1,22 @@
 # aggregazioni-takehome
-Web Application - Take Home
+## Web Application - Take Home
 
-ISTRUZIONI PER BUILDARE:
-Da CLI: $
-cd LATUACARTELLA/aggregazioni-takehome/my-app
-npm run start:prod
+### <b>ISTRUZIONI PER BUILDARE</b>:<br>
+Da CLI: 
+- cd LATUACARTELLA/aggregazioni-takehome/my-app
+- npm run start:prod
 
-DEFINIZIONE REQUISITI (dal pdf)
+Alternativamente con Yarn (dopo cd LATUACARTELLA/aggregazioni-takehome/my-app):
+- yarn build:client
+- yarn start prod
 
-PROBLEMA:
-
+### <b>DEFINIZIONE REQUISITI (dal pdf)</b>
+<br>
+<b>PROBLEMA</b>:<br>
 In azienda abbiamo un sistema di raccolta dei dati relativi alle ore lavorative spese da ogni impiegato sui progetti. 
 Si vuole realizzare una pagina web che recuperi questi dati e ne permetta l’aggregazione su uno o più campi contemporaneamente al fine di effettuare delle analisi.
-
-INPUT:
+<br><br>
+<b>INPUT</b>:<br>
 Il database restituisce una lista di registrazioni di attività. Ogni attività presenta il progetto di afferenza, l’impiegato che la ha svolta, la data e il numero di ore dedicate.
 
 Esempio di payload: 
@@ -61,33 +64,32 @@ Esempio di payload:
 
 ---
 
-OUTPUT:
+<b>OUTPUT</b>:<br>
 La pagina web consente di aggregare per uno o più campi tra:
-	- progetto
-	- impiegato
-	- data
+- progetto
+- impiegato
+- data
 
 Quando l’utente sceglie una aggregazione il numero di ore delle attività aggregate si somma.
 È importante considerare che l’ordine con cui vengono scelti i campi per l’aggregazione produce risultati diversi nell’ordinamento di colonne e righe.
 
-VINCOLI:
+<b>VINCOLI</b>:<br>
 1. Sviluppare una applicazione web client-server sfruttando la tecnologia che si preferisce.
 2. Il database può essere simulato con una variabile in memoria.
 
-LINK A MOCKUP (FIGMA):
+<b>LINK A MOCKUP (FIGMA):</b><br>
 https://www.figma.com/design/hqV2bN45RO8v5H4GwSH1L1/aggregazioni-mockup?node-id=0-1&t=YZCdKk4JzUpmconw-1
 
-TECNOLOGIE USATE:
-
+<b>TECNOLOGIE USATE</b>:<br>
 - React.js + Vite + Axios API (Frontend)
 	- Bootstrap (base tabella)
+- Figma (prototipazione) 
 - Express, Nodemon, Concurrently (Backend)
 - Typescript
 - CSS
 - HTML5
 
-FONTI:
-
+<b>FONTI</b>:<br>
 Vite:
 - https://vite.dev/guide/
 - https://vite.dev/guide/static-deploy
