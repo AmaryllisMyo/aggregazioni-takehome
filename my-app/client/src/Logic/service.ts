@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Filters } from './types.ts'
+import type {Filters, WorkRecord} from './types.ts'
 import type { AggregationResult } from './types.ts'
 
 //ricorda di aggiungere axios quando passi da mock a client-server
@@ -17,7 +17,7 @@ export const service = async (filter?: Filters): Promise<AggregationResult[]> =>
   }
 };
 
-export const getRawRecords = async() => {
+export const getRawRecords = async(): Promise<WorkRecord[]> => {
   try {
     const response = await axios.get(`${API_BASE_URL}/records/raw`);
     return response.data;

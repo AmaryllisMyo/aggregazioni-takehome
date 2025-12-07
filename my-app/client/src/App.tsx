@@ -1,16 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Table from 'react-bootstrap/Table';
 import './App.css'
-import { db } from "../../server/assets/db.ts"
 import logo from "./assets/logo.png"
 import { useDataAggregation } from './Logic/query.ts'
-import type { AggregationResult } from './Logic/types.ts'
 import RenderHeaders from "./components/renderHeaders.tsx"
-import RenderRows from './components/renderRows.tsx';
+import RenderRows, {type RenderRowProps} from './components/renderRows.tsx';
 
- 
+
 const App: React.FC = () => {
-  const { filteredQuery, filterStatus, handleFilterChange} = useDataAggregation();
+  const { dataSource, filterStatus, handleFilterChange, } = useDataAggregation();
 
   return (
     <>
@@ -39,7 +37,7 @@ const App: React.FC = () => {
           <option value="employee,date">Merge by: Employee/Date</option>
           <option value="project,date">Merge by: Project/Date</option>
         </select>
-        </div> 
+        </div>
        </div>
         <div className='tableContainer'>
           <Table striped hover className='table'>
@@ -49,11 +47,10 @@ const App: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {RenderRows(
-                filterStatus.campiAggregazione,
-                db.records,
-                filteredQuery.data as AggregationResult[]
-              )}
+              {RenderRows({
+                  campiAggregazione: filterStatus.campiAggregazione,
+                  dataSource
+              } as RenderRowProps)}
             </tbody>
           </Table>
       </div>

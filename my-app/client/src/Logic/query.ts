@@ -1,63 +1,59 @@
-import { useState, useEffect } from 'react';
-import { service } from './service.ts';
-import type { Filters } from './types.ts'
+import {useState, useEffect, useCallback} from 'react';
+import {getRawRecords, service} from './service.ts';
+import type {Filters, WorkRecord} from './types.ts'
 import type { AggregationResult } from './types.ts'
 
 
-const useTableQuery = (filter?: Filters) => {
+const useTableQuery = () => {
   const [error, setError] = useState<Error | null>(null);
-  const [data, setData] = useState<AggregationResult[] | null>(null);
+  const [data, setData] = useState<AggregationResult[] | WorkRecord[] |null>(null);
 
-  const queryService = async () => {
+  const queryService = useCallback(async (filter?: Filters) => {
     try {
       setError(null);
-      const dati = await service(filter);
+      const dati = filter ? await service(filter) : await getRawRecords();
       setData(dati);
     } catch (e) {
       setError(e as Error);
     }
-  };
+  }, []);
 
   return { error, data, queryService };
 };
 
 const useFilters = () => {
   const [campiAggregazione, setCampiAggregazione] = useState<string[] | null>(null);
-  
+
   return {
     campiAggregazione,
     setCampiAggregazione,
   };
 };
 
+//wrappa handleFilterChange con useCallback per evitare re-rendering. ristrutturato perché ora uso rawData
 export const useDataAggregation = () => {
-  const rawQuery = useTableQuery();
-  
-  const filterStatus = useFilters();
-  
-  const filteredQuery = useTableQuery(
-    filterStatus.campiAggregazione 
-      ? { campiAggregazione: filterStatus.campiAggregazione } : undefined
-  );
+  const {queryService: rawQueryService, data: rawQueryData } = useTableQuery();
+    const {queryService: filterQueryService, data: filterQueryData } = useTableQuery();
 
-  useEffect(() => {
-    rawQuery.queryService();
-  }, []);
+    const {setCampiAggregazione, campiAggregazione} = useFilters();
 
-  useEffect(() => {
-    if (filterStatus.campiAggregazione) {
-      filteredQuery.queryService();
-    }
-  }, [filterStatus.campiAggregazione]);
+  const handleFilterChange = useCallback((campi: string[] | null) => {
+    setCampiAggregazione(campi);
+  }, [setCampiAggregazione]);
 
-  const handleFilterChange = (campi: string[] | null) => {
-    filterStatus.setCampiAggregazione(campi);
-  };
+  const onFiltersChanged = useCallback(() => {
+      if(!campiAggregazione){
+          rawQueryService().then().catch();
+          return
+      }
+      filterQueryService({campiAggregazione}).then().catch();
+  }, [campiAggregazione, filterQueryService, rawQueryService])
+
+    useEffect(onFiltersChanged, [onFiltersChanged]);
 
   return {
-    rawQuery,
-    filteredQuery,
-    filterStatus,
-    handleFilterChange
+      dataSource: campiAggregazione ? filterQueryData : rawQueryData,
+      filterStatus: {setCampiAggregazione, campiAggregazione},
+      handleFilterChange
   };
 };

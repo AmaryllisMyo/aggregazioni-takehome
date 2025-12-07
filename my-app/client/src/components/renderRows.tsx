@@ -2,24 +2,27 @@ import type { AggregationResult } from '../Logic/types.ts'
 import type { WorkRecord } from '../Logic/types.ts'
 import RecordRow from './tableStructure.tsx'
 
+export type RenderRowProps = {
+    campiAggregazione: string[],
+    dataSource: AggregationResult[] | null,
+} | {
+    campiAggregazione:  null,
+    dataSource: WorkRecord[] | null,
+}
+
 // rifattorizzo qui rows modulari. si basano sul type WorkRecord che ho definito nel file types.ts
 const RenderRows = (
-  campiAggregazione: string[] | null,
-  records: WorkRecord[],
-  aggregatedData: AggregationResult[] | null
-) => { 
+    {campiAggregazione, dataSource}: RenderRowProps
+) => {
+    if(!dataSource) return <></>
+
     if (!campiAggregazione) {
-    return records.map((record, i) => (
+    return dataSource?.map((record, i) => (
       <RecordRow key={i} record={record} />
     ));
   }
 
-  if (!aggregatedData || !Array.isArray(aggregatedData)) {
-    return null;
-  }
-
-
-  return aggregatedData.map((row, i) => {
+    return dataSource.map((row, i) => {
         return (
     <tr key={i}>
       {campiAggregazione.map((campo) => {
